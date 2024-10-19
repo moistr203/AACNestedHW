@@ -1,26 +1,22 @@
 import edu.grinnell.csc207.util.AssociativeArray;
-import structures.AssociativeArray; // Assuming AssociativeArray is in the 'structures' package
+import edu.grinnell.csc207.util.KVPair;
+import edu.grinnell.csc207.util.KeyNotFoundException;
+import edu.grinnell.csc207.util.NullKeyException;
 import java.util.NoSuchElementException;
 
-import edu.grinnell.csc207.util.KeyNotFoundException;
-
 /**
- * Creates a category of images and their texts
+ * Creates a category of images and their texts.
  *
  * @author Catie Baker
  * @author Moise Milenge
  * Help obtained: Evening Tutors
  */
 public class AACCategory {
-    // +--------+------------------------------------------------------------
-    // | Fields |
-    // +--------+
+    // Fields
     private String name;
     private AssociativeArray<String, String> imageMap;
 
-    // +--------+------------------------------------------------------------
-    // | Constructors|
-    // +-------------+
+    // Constructors
     /**
      * Creates a new empty category with the given name.
      *
@@ -31,9 +27,7 @@ public class AACCategory {
         this.imageMap = new AssociativeArray<>();
     }
 
-    // +--------+------------------------------------------------------------
-    // | Methods|
-    // +--------+
+    // Methods
 
     /**
      * Adds the mapping of the imageLoc to the text to the category.
@@ -43,8 +37,8 @@ public class AACCategory {
      */
     public void addItem(String imageLoc, String text) {
         try {
-            this.imageMap.set(imageLoc, text);  // NullKeyException may be thrown here
-        } catch (NullKeyException e) {  // Handling the custom NullKeyException
+            this.imageMap.set(imageLoc, text);  // Handle potential NullKeyException here
+        } catch (NullKeyException e) {
             System.err.println("Error: Invalid (null) key provided.");
             e.printStackTrace();
         }
@@ -68,7 +62,7 @@ public class AACCategory {
         String[] images = new String[this.imageMap.size()];
         int size = 0;
         for (KVPair<String, String> pair : this.imageMap) {
-            images[size++] = pair.getKey();  // Fixed method to getKey()
+            images[size++] = pair.getKey();  // Get the image location
         }
         return images;
     }
@@ -81,7 +75,11 @@ public class AACCategory {
      * @throws NoSuchElementException if the image location is not found
      */
     public String getText(String imageLoc) {
-        return this.imageMap.get(imageLoc);  // KeyNotFoundException may be thrown here
+        try {
+            return this.imageMap.get(imageLoc);  // Handle KeyNotFoundException
+        } catch (KeyNotFoundException e) {
+            throw new NoSuchElementException("Image location not found: " + imageLoc);
+        }
     }
 
     /**
@@ -106,5 +104,26 @@ public class AACCategory {
             result.append(">").append(pair.getKey()).append(" ").append(pair.getValue()).append("\n");
         }
         return result.toString();
+    }
+
+    // Newly added methods
+
+    /**
+     * Returns an array of image locations (paths) in the category.
+     *
+     * @return an array of image locations
+     */
+    public String[] getImageLocs() {
+        return getImages();  // This method is essentially an alias for getImages()
+    }
+
+    /**
+     * Returns the text associated with the given image location (selected).
+     *
+     * @param imageLoc the location of the image
+     * @return the text associated with the image
+     */
+    public String select(String imageLoc) {
+        return getText(imageLoc);  // This method is an alias for getText()
     }
 }
