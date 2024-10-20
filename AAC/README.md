@@ -1,18 +1,42 @@
-## Getting Started
+# Mini-Project 5: Augmentative and Alternative Communication Devices
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Overview
+This project implements an Augmentative and Alternative Communication (AAC) system using an extended version of the `AssociativeArray` class. The goal is to allow users to navigate categories and communicate using images mapped to words.
 
-## Folder Structure
+## Project Structure
+- **edu.grinnell.csc207.util Package**:
+  - `AssociativeArray<K, V>`: Stores key-value pairs in a custom array-based map.
+  - `KVPair<K, V>`: Represents a key-value pair used in the `AssociativeArray`.
+  - **Exceptions**:
+    - `NullKeyException`: Thrown if a null key is passed.
+    - `KeyNotFoundException`: Thrown if a key is not found.
 
-The workspace contains two folders by default, where:
+- **AACCategory Class**:
+  - Maps image locations (strings) to corresponding words.
+  - Supports retrieval of image locations, selecting images, and returning associated text.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+- **AACMappings Class**:
+  - Manages categories using `AACCategory` objects.
+  - Maps filenames to categories and allows switching between them.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+## Usage
+1. **Running the Application**:
+   - Run the main application. It may take a few seconds to load.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+2. **Navigating Categories**:
+   - Users can switch between AAC categories, where each category maps images to words.
 
-## Dependency Management
+3. **Communicating**:
+   - Select an image to get the associated word.
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Notes
+- This project does not use Maven.
+- Stubs are provided for some methods and need to be implemented.
+- Modify `AAC.java` by commenting out line 52 and uncommenting line 53 to switch to `AACMappings`.
+- Test files (`TestAACCategory.java`, `TestAACMappings.java`) can be used in VSCode for testing.
+
+## Acknowledgments
+- **Moise Milenge**: Project development.
+- **Samuel A. Rebelsky**: Assignment and guidance.
+- **Catie Baker**: Original project idea and code contributions.
+- **GeeksforGeeks**: Reference for `TextSpeech` implementation.
